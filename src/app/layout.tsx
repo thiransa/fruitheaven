@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   title: "Fruit Heaven — Heaven in Every Bite",
   description:
     "Premium imported and fresh local fruits, delivered to your door.",
-  icons: { icon: "/images/logo.png" },
 };
 
 export default function RootLayout({
