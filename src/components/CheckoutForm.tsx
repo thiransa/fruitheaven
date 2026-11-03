@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Loader2, Lock, Minus, Plus, Trash2 } from "lucide-react";
+import { Loader2, Lock, MessageCircle, Minus, Plus, Trash2 } from "lucide-react";
 import clsx from "clsx";
 import {
   customerSchema,
@@ -12,6 +12,7 @@ import {
 } from "@/lib/checkout";
 import { formatPrice } from "@/lib/products";
 import { cartTotal, useCart } from "@/store/cart";
+import { PAYHERE_ENABLED, orderMessage, whatsappLink } from "@/lib/whatsapp";
 
 type Errors = Partial<Record<keyof CustomerInput | "form", string>>;
 
@@ -55,6 +56,7 @@ export default function CheckoutForm() {
   const [mounted, setMounted] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
+  const [sentToWhatsapp, setSentToWhatsapp] = useState(false);
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
@@ -91,6 +93,13 @@ export default function CheckoutForm() {
     }
 
     setErrors({});
+
+    if (!PAYHERE_ENABLED) {
+      window.open(whatsappLink(orderMessage(items, parsed.data, total)), "_blank", "noopener");
+      setSentToWhatsapp(true);
+      return;
+    }
+
     setSubmitting(true);
     try {
       const res = await fetch("/api/checkout", {
@@ -162,21 +171,40 @@ export default function CheckoutForm() {
           </p>
         )}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-mist py-4 text-wine-deep transition hover:bg-white disabled:opacity-60"
-        >
-          {submitting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Lock className="h-4 w-4" />
-          )}
-          {submitting ? "Redirecting to PayHere…" : `Pay ${formatPrice(total)}`}
-        </button>
-        <p className="mt-3 text-center text-xs text-white/50">
-          You&rsquo;ll be taken to PayHere to pay securely by card or mobile wallet.
-        </p>
+        {PAYHERE_ENABLED ? (
+          <>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-mist py-4 text-wine-deep transition hover:bg-white disabled:opacity-60"
+            >
+              {submitting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Lock className="h-4 w-4" />
+              )}
+              {submitting ? "Redirecting to PayHere…" : `Pay ${formatPrice(total)}`}
+            </button>
+            <p className="mt-3 text-center text-xs text-white/50">
+              You&rsquo;ll be taken to PayHere to pay securely by card or mobile wallet.
+            </p>
+          </>
+        ) : (
+          <>
+            <button
+              type="submit"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-mist py-4 text-wine-deep transition hover:bg-white"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Order on WhatsApp · {formatPrice(total)}
+            </button>
+            <p className="mt-3 text-center text-xs text-white/50">
+              {sentToWhatsapp
+                ? "WhatsApp opened with your order — just hit send and we’ll confirm payment and delivery with you."
+                : "Your order is sent to us on WhatsApp. We’ll confirm availability, payment and delivery with you there."}
+            </p>
+          </>
+        )}
       </form>
 
       <aside className="order-1 h-fit rounded-xl bg-wine-dark/60 p-5 ring-1 ring-white/5 md:p-6 lg:order-2">

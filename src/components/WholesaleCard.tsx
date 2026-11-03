@@ -1,8 +1,7 @@
 import ImageCarousel from "./ImageCarousel";
 import { formatPrice } from "@/lib/products";
 import type { WholesaleItem } from "@/lib/wholesale";
-
-const WHATSAPP = "94777662766";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function WholesaleCard({ item }: { item: WholesaleItem }) {
   const message = `Hi Fruit Heaven, I'd like to order ${item.name}${item.box ? ` (${item.box})` : ""} wholesale.`;
@@ -65,7 +64,7 @@ export default function WholesaleCard({ item }: { item: WholesaleItem }) {
           </p>
         ) : (
           <a
-            href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`}
+            href={whatsappLink(message)}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-auto rounded-lg border border-white/20 py-2 text-center text-xs font-medium text-white/90 transition hover:border-lilac hover:text-lilac"
