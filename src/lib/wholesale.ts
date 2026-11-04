@@ -52,7 +52,7 @@ export const wholesale: WholesaleCategory[] = [
       {
         name: "Green Apple (South Africa)",
         box: "135 pcs",
-        price: 28500,
+        price: 26000,
         images: [1, 2, 3].map(
           (n) => `/images/wholesale/green-apple-sa-${n}.jpg`,
         ),
@@ -147,7 +147,7 @@ export const wholesale: WholesaleCategory[] = [
       {
         name: "South Africa Orange",
         box: "72–88 pcs",
-        price: 16000,
+        price: 16500,
         images: [1, 2, 3].map((n) => `/images/wholesale/sa-orange-${n}.jpg`),
         retail: { price: 220, unit: "1 orange" },
       },
@@ -246,7 +246,7 @@ export const wholesale: WholesaleCategory[] = [
       {
         name: "China Green Grapes",
         box: "5 kg",
-        price: 9000,
+        price: 8500,
         images: [1, 2, 3, 4, 5, 6].map(
           (n) => `/images/wholesale/green-grapes-${n}.jpg`,
         ),
@@ -255,7 +255,7 @@ export const wholesale: WholesaleCategory[] = [
       {
         name: "China Black Grapes",
         box: "5 kg",
-        price: 9500,
+        price: 9000,
         // Tray photo is the cover.
         images: [3, 1, 2, 4].map(
           (n) => `/images/wholesale/black-grapes-${n}.jpg`,
