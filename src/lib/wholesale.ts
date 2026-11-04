@@ -358,7 +358,11 @@ export const wholesale: WholesaleCategory[] = [
         name: "Strawberry",
         box: "250 g",
         price: 1400,
-        images: ["/images/wholesale/strawberry.jpg"],
+        // Zoomed-in punnet with the label is the cover.
+        images: [
+          "/images/wholesale/strawberry-1-zoom.jpg",
+          "/images/wholesale/strawberry-2.jpg",
+        ],
         retail: { price: 1400, unit: "1 box" },
       },
       {
