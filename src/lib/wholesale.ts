@@ -165,7 +165,11 @@ export const wholesale: WholesaleCategory[] = [
         name: "South African Mandarin",
         box: "10 kg",
         price: 10000,
-        images: ["/images/wholesale/south-african-mandarin.jpg"],
+        // Close-up of the fruit is the cover.
+        images: [
+          "/images/wholesale/south-african-mandarin-1-zoom.jpg",
+          "/images/wholesale/south-african-mandarin-2.jpg",
+        ],
         retail: { price: 1200, unit: "1 kg" },
       },
       {
@@ -235,13 +239,11 @@ export const wholesale: WholesaleCategory[] = [
       {
         name: "China Red Grapes",
         box: "6 kg",
-        price: 6500,
-        priceTo: 7500,
-        note: "3 grades",
+        price: 6000,
         images: [1, 2, 3, 4, 5].map(
           (n) => `/images/wholesale/red-grapes-${n}.jpg`,
         ),
-        retail: { price: 1600, unit: "1 kg" },
+        retail: { price: 1500, unit: "1 kg" },
       },
       {
         name: "China Green Grapes",
